@@ -2,8 +2,8 @@ import { ApolloClient, NormalizedCacheObject, ApolloProvider } from "@apollo/cli
 import { Component } from "react";
 import "./App.css";
 import Header from "./Components/Header";
-import QuizSection from "./Components/QuizSection";
 import { cache } from "./cache";
+import InputCountry from "./Components/InputCountry";
 
 export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache,
@@ -16,7 +16,7 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
         <Header />
-        <QuizSection />
+        <InputCountry />
       </ApolloProvider>
     );
   }
