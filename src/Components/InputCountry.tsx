@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from 'react';
 import QuizSection from './QuizSection';
 
 const InputCountry: React.FC = () => {
-  const [country, setCountry] = useState<String>('Australia')
+  const [country, setCountry] = useState<string>('Australia')
   const [quantity, setQuantity] = useState<number>(5)
 
   const handleCountryChange = (e: ChangeEvent<HTMLSelectElement>) => {
