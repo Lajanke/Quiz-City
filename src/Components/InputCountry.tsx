@@ -16,7 +16,6 @@ const InputCountry: React.FC = () => {
 
   return (
     <>
-      <h2>{country}</h2>
       <form>
         <label>
             Pick a country:

@@ -5,9 +5,11 @@
 li {
   list-style: none;
   border-style: solid;
-  margin: 0.5rem;
   padding: 1rem;
   border-width: 1px;
+  width: 500px;
+  margin: auto;
+  margin-bottom: 0.5rem;
 }
 
 input {
