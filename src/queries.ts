@@ -8,3 +8,11 @@ export const GET_CITIES = gql`
     }
   }
 `;
+
+export const GET_STATES = gql`
+  query states {
+    states {
+      name
+    }
+  }
+`;
