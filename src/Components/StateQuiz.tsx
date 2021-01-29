@@ -68,10 +68,11 @@ const StateQuiz: React.FC<StateQuizProps> = () => {
     <>
       <h2>Name all the states of the USA.</h2>
       {!validGuesses.every((val: string) => validation.includes(val)) && (
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={(e) => e.preventDefault()} className='form2'>
           <label>
-            Guess a State:
             <input
+              placeholder='Your guess here...'
+              className='guessInput'
               type="text"
               value={inputBox}
               onChange={(e) => handleGuess(e)}
@@ -87,9 +88,10 @@ const StateQuiz: React.FC<StateQuizProps> = () => {
       )}
       {data && (
         <ul>
-          {data.states.map((state: any) => {
+          {data.states.map((state: any, index: number) => {
             return (
               <li key={`${state.name}`}>
+                <p>{index + 1}</p>
                 {validation.includes(state.name.toLowerCase()) && (
                   <p className="correct">{state.name}</p>
                 )}

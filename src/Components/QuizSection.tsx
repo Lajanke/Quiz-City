@@ -53,18 +53,19 @@ const QuizSection: React.FC<QuizSectionProps> = ({ country, quantity }) => {
   return (
     <>
       <h2>
-        The top {quantity} largest cities in {country}
+        What are the top {quantity} largest cities in {country}?
       </h2>
       {!validGuesses.every((val: string) => validation.includes(val)) && (
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={(e) => e.preventDefault()} className='form2'>
           <label>
-            Guess a City:
+            </label>
             <input
+              placeholder='Your guess here...'
+              className='guessInput'
               type="text"
               value={inputBox}
               onChange={(e) => handleGuess(e)}
             />
-          </label>
         </form>
       )}
       {validGuesses.every((val: string) => validation.includes(val)) && (
@@ -72,9 +73,10 @@ const QuizSection: React.FC<QuizSectionProps> = ({ country, quantity }) => {
       )}
       {data && (
         <ul>
-          {topCities.map((city: cities_cities) => {
+          {topCities.map((city: cities_cities, index) => {
             return (
               <li key={`${city.name}${city.population}`}>
+                <p>{index + 1}</p>
                 <p>Population: {city.population.toLocaleString()} </p>
                 {validation.includes(city.name.toLowerCase()) && (
                   <p className="correct">{city.name}</p>

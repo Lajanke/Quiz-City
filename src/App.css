@@ -1,38 +1,118 @@
+@font-face {
+  font-family: 'Kalam';
+  font-weight: light;
+  src: local('Kalam'), url(./fonts/Kalam-Light.ttf) format('truetype')
+}
+
+@font-face {
+  font-family: 'Kalam';
+  font-weight: regular;
+  src: local('Kalam'), url(./fonts/Kalam-Regular.ttf) format('truetype')
+}
+
+@font-face {
+  font-family: 'Barrio';
+  font-weight: regular;
+  src: local('Barrio'), url(./fonts/Barrio-Regular.ttf) format('truetype')
+}
+
+
+body {
+  background-image: url(./images/city-night.jpg);
+  background-size:100%;
+  background-repeat:unset;
+}
+
 .App {
   text-align: center;
 }
 
 li {
   list-style: none;
-  border-style: solid;
   padding: 1rem;
-  border-width: 1px;
+  border-width: 0;
   width: 350px;
-  margin: auto;
+  margin: 0.5rem;
   margin-bottom: 0.5rem;
+  background-image: linear-gradient(to right, 
+  rgba(0,0,0, 1) 50%,
+  rgba(0,0,0, .7) 80%,
+  rgba(0,0,0, .5) 90%,
+  rgba(0,0,0, 0)) 
 }
 
 input {
   margin: 1rem;
   text-align: center;
+  background-color:  #dae6e8;
 }
 
-h1, h2, p {
+select {
+  background-color:  #dae6e8;
+  width: 100px;
+  align-self: center;
+  margin: 0.5rem;
+  border-style: none;
+  border-radius: 0.2rem;
+}
+
+label {
+  color: #dae6e8;
+  width: 400px;
+  align-self: center;
+}
+
+p {
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
+  color: #dae6e8;
+  margin: 0.2rem;
 }
 
-form {
+h2 {
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
+  color: #dae6e8;
+  margin-top: 2rem; 
+  margin-bottom: 0.2rem;
+}
+
+h1 {
+  color:  rgba(6, 125, 143, 1);
+  font-family: Barrio;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.form1 {
+  text-align: center;
+  color: #dae6e8;
+  background-image: linear-gradient(to right, rgba(0,0,0, 0), rgba(0,0,0, 1), rgba(0,0,0, 1), rgba(0,0,0, 0));
+  border-bottom: rgba(6, 125, 143, 1);
+  border-width: 0 0 1px 0;
+  border-style: dotted;
+  margin: 1rem;
+}
+
+.form2 {
+  text-align: center;
+  color: #dae6e8;
+  display: flex;
+  flex-direction: column;
 }
 
 ul {
-  margin: 0;
+  margin: 1rem;
   padding: 0;
+  background-color: rgba(6, 125, 143, 0.9);
 }
 
 .correct {
-  background-color: #24ab3f;
+  background-image: linear-gradient(to right, 
+  rgba(255,255,255, 0), 
+  rgba(40, 181, 70, 1), 
+  rgba(255,255,255, 0));
   color: #f0f5f1;
 }
 
@@ -40,6 +120,8 @@ p.correct {
   width: 200px;
   margin: auto;
   font-size: 1.5rem;
+  font-family: Kalam;
+  font-weight: Light;
 }
 
 p.winner {
@@ -47,6 +129,17 @@ p.winner {
   font-size: 2rem;
   color: #24ab3f;
   padding: 0.5rem;
+}
+
+.guessInput {
+  font-family: Kalam;
+  font-weight: regular;
+  font-size: 2rem;
+  width: 300px;
+  align-self: center;
+  border-width: 0;
+  border-radius: 0.2rem;
+  padding: 0.3rem;
 }
 
 @media only screen and (min-width: 700px) {
