@@ -1,5 +1,6 @@
 import { ApolloClient, NormalizedCacheObject, ApolloProvider } from "@apollo/client";
 import { Component } from "react";
+import { RecoilRoot } from 'recoil';
 import "./App.css";
 import Header from "./Components/Header";
 import { cache } from "./cache";
@@ -14,10 +15,12 @@ export const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
 class App extends Component {
   render() {
     return (
+      <RecoilRoot >
       <ApolloProvider client={client}>
         <Header />
         <InputCountry />
       </ApolloProvider>
+      </RecoilRoot>
     );
   }
 }

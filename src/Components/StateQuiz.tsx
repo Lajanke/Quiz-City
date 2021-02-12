@@ -5,8 +5,9 @@ import { RouteComponentProps } from "@reach/router";
 import { GET_STATES } from "../queries";
 import { cache } from "../cache";
 import { useState, ChangeEvent, useEffect } from "react";
-
-// Needs types.
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { Validated } from "../recoil/atoms";
+import { CorrectAnswers } from "../recoil/selectors";
 
 interface StateQuizProps extends RouteComponentProps {}
 
@@ -21,10 +22,11 @@ const StateQuiz: React.FC<StateQuizProps> = () => {
   const { data, loading, error } = useQuery<any>(GET_STATES, {
     client: localClient,
   });
-  const [validation, setValidation] = useState<string[]>([]);
+  const [correct, setValidation] = useRecoilState<string[]>(Validated);
   const [inputBox, setInputBox] = useState<string>("");
   const [seconds, setSeconds] = useState<number>(360);
   const [formatTime, setFormatTime] = useState<string>('');
+  const numCorrect = useRecoilValue(CorrectAnswers);
 
   useEffect(() => {
     if (seconds > 0) {
@@ -45,29 +47,27 @@ const StateQuiz: React.FC<StateQuizProps> = () => {
   if (error) return <p>{error.message}</p>;
   if (!data) return <p>Not found</p>;
 
-  const validGuesses: string[] = data.states.map((state: any) =>
-    state.name.toLowerCase()
-  );
+  const validGuesses: string[] = data.states.map((state: any) => state.name.toLowerCase());
 
   const handleGuess = (e: ChangeEvent<HTMLInputElement>) => {
     setInputBox(e.target.value);
+    const guess = e.target.value.toLowerCase().trim()
     if (
-      validGuesses.includes(e.target.value.toLowerCase().trim()) &&
-      !validation.includes(e.target.value.toLowerCase().trim())
+      validGuesses.includes(guess)
     ) {
-      setValidation([...validation, e.target.value.toLowerCase().trim()]);
+      setValidation([...correct, guess]);
       setInputBox("");
     }
   };
 
   if (seconds === 0) {
-    return <p>Out of time. You got {validation.length}/{validGuesses.length} correct.</p>
+    return <p>Out of time. You got {numCorrect}/{validGuesses.length} correct.</p>
   }
 
   return (
     <>
       <h2>Name all the states of the USA.</h2>
-      {!validGuesses.every((val: string) => validation.includes(val)) && (
+      {validGuesses.length !== numCorrect && (
         <form onSubmit={(e) => e.preventDefault()} className='form2'>
           <label>
             <input
@@ -80,10 +80,10 @@ const StateQuiz: React.FC<StateQuizProps> = () => {
           </label>
         </form>
       )}
-      <p style={{fontSize:'2rem'}}>
+      <p style={{fontSize:'2rem', margin: 'auto', width: '200px', fontFamily: 'Barrio', backgroundImage: 'linear-gradient(to right, rgba(0,0,0, 1) 50%, rgba(0,0,0, .7) 80%, rgba(0,0,0, .5) 90%, rgba(0,0,0, 0))'}}>
         {formatTime}
       </p>
-      {validGuesses.every((val: string) => validation.includes(val)) && (
+      {validGuesses.length === numCorrect && (
         <p className="winner">🥳 You're a genius</p>
       )}
       {data && (
@@ -91,10 +91,14 @@ const StateQuiz: React.FC<StateQuizProps> = () => {
           {data.states.map((state: any, index: number) => {
             return (
               <li key={`${state.name}`}>
+                <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', borderStyle: 'dotted', borderWidth: '0 1px 0 0', borderColor: 'rgba(6, 125, 143, 1)'}}>
                 <p>{index + 1}</p>
-                {validation.includes(state.name.toLowerCase()) && (
+                </div>
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                {correct.includes(state.name.toLowerCase()) && (
                   <p className="correct">{state.name}</p>
                 )}
+                </div>
               </li>
             );
           })}

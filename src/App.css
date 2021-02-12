@@ -28,6 +28,8 @@ body {
 }
 
 li {
+  display: grid;
+  grid-template-columns: 1fr 9fr;
   list-style: none;
   padding: 1rem;
   border-width: 0;
@@ -118,7 +120,7 @@ ul {
 
 p.correct {
   width: 200px;
-  margin: auto;
+  margin: auto auto auto 0;
   font-size: 1.5rem;
   font-family: Kalam;
   font-weight: Light;

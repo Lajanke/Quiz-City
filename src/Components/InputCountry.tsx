@@ -1,12 +1,14 @@
 import "../App.css";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
+import { useRecoilState } from 'recoil';
 import QuizSection from "./QuizSection";
 import StateQuiz from "./StateQuiz";
+import { Country, Quantity, UsQuiz } from "../recoil/atoms";
 
 const InputCountry: React.FC = () => {
-  const [country, setCountry] = useState<string>("Australia");
-  const [quantity, setQuantity] = useState<number>(5);
-  const [checked, setChecked] = useState<boolean>(false);
+  const [, setCountry] = useRecoilState(Country);
+  const [, setQuantity] = useRecoilState(Quantity);
+  const [usQuiz, setQuiz] = useRecoilState(UsQuiz);
 
   const handleCountryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setCountry(e.target.value);
@@ -46,19 +48,19 @@ const InputCountry: React.FC = () => {
         </select>
         <label>
           {
-            checked ? 'Uncheck to go back to city quiz' : 'Switch to American states quiz' 
+            usQuiz ? 'Uncheck to go back to city quiz' : 'Switch to American states quiz' 
           }
           <input
             type="checkbox"
-            checked={checked}
-            onChange={() => setChecked(!checked)}
+            checked={usQuiz}
+            onChange={() => setQuiz(!usQuiz)}
           />
         </label>
       </form>
-      {checked ? (
+      {usQuiz ? (
         <StateQuiz />
       ) : (
-        <QuizSection country={country} quantity={quantity} />
+        <QuizSection />
       )}
     </>
   );
