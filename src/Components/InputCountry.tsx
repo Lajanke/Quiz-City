@@ -2,11 +2,14 @@ import "../App.css";
 import { ChangeEvent, useState } from "react";
 import QuizSection from "./QuizSection";
 import StateQuiz from "./StateQuiz";
+import { useMachine } from '@xstate/react';
+import { quizMachine } from '../stateMachine/machine';
 
 const InputCountry: React.FC = () => {
   const [country, setCountry] = useState<string>("Australia");
   const [quantity, setQuantity] = useState<number>(5);
-  const [checked, setChecked] = useState<boolean>(false);
+  //const [checked, setChecked] = useState<boolean>(false);
+  const [quizType, send] = useMachine(quizMachine);
 
   const handleCountryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setCountry(e.target.value);
@@ -46,16 +49,16 @@ const InputCountry: React.FC = () => {
         </select>
         <label>
           {
-            checked ? 'Uncheck to go back to city quiz' : 'Switch to American states quiz' 
+            quizType.matches('us') ? 'Uncheck to go back to city quiz' : 'Switch to American states quiz' 
           }
           <input
             type="checkbox"
-            checked={checked}
-            onChange={() => setChecked(!checked)}
+            //checked={current}
+            onChange={() => send('CHANGE')}
           />
         </label>
       </form>
-      {checked ? (
+      {quizType.matches('us') ? (
         <StateQuiz />
       ) : (
         <QuizSection country={country} quantity={quantity} />
